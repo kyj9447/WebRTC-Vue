@@ -3,51 +3,18 @@ import { remoteStreamStore } from '../stores/store'
 </script>
 
 <template>
-  <div class="container">
+  <div class="grid grid-cols-2 gap-0 items-center h-full justify-between overflow-auto w-full">
     <div
       v-for="(video, index) in remoteStreamStore().$state.remoteStream"
       :key="index"
       :id="video.id"
-      class="video-container"
+      class="video m-5 relative w-4/5 bg-white rounded-2xl shadow-2xl overflow-hidden"
     >
-      <div class="username">{{ video.dataset.username }}</div>
-      <video class="remoteVideo" :srcObject="video.srcObject" autoplay controls></video>
+      <video :srcObject="video.srcObject" autoplay class="m-auto shadow-2xl max-h-52 "></video>
+      <div class="absolute top-0 left-0 bg-black text-white w-full opacity-50 pl-2">{{ video.dataset.username }}</div>
     </div>
   </div>
-  <!-- <UserEntity /> -->
 </template>
 
-<style>
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 15px;
-}
-
-.video-container {
-  position: relative;
-  width: 320px;
-  height: 240px;
-  max-width: 320px;
-  max-height: 240px;
-  margin: 15px;
-}
-
-.username {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  z-index: 1;
-  width: 320px;
-}
-
-.remoteVideo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 320px;
-  max-height: 240px;
-}
+<style scoped>
 </style>

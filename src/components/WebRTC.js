@@ -1,4 +1,4 @@
-import { currentViewStore, myStreamStore, myInfoStore, remoteStreamStore, chatStore } from '../stores/store.ts';
+import { currentViewStore, myStreamStore, myInfoStore, remoteStreamStore, chatStore, chatNotificationStore } from '../stores/store.ts';
 
 
 const configuration = {
@@ -37,7 +37,10 @@ socket.onmessage = onmessageHandler;
 //var myUsername = '';
 
 // 미디어 스트림 가져오기
-navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+navigator.mediaDevices.getUserMedia({
+    video: { width: 320, height: 240 },
+    audio: false
+})
     .then(stream => {
         // 스토어에 저장
         myStreamStore().$state.myStream = stream;
@@ -129,7 +132,7 @@ const ontrackHandler = (event, remotePeer) => {
         //console.log("새 stream track 추가 : " + event);
         remotePeer.inboundStream.addTrack(event.track);
 
-        newVideo(remotePeer.sessionId, remotePeer.inboundStream ,remotePeer.username);
+        newVideo(remotePeer.sessionId, remotePeer.inboundStream, remotePeer.username);
     }
 };
 
@@ -231,7 +234,7 @@ function onmessageHandler(event) {
     else if (parsedMessage.type === "login") {
 
         // html태그 추가
-        let loginmessage = "false,"+parsedMessage.data.username + "님이 로그인하였습니다";
+        let loginmessage = "false," + parsedMessage.data.username + "님이 로그인하였습니다";
         //let paragraph = document.createElement("li");
         //let text = document.createTextNode(loginmessage);
 
@@ -241,6 +244,10 @@ function onmessageHandler(event) {
         // let chatList = document.getElementById('ChatList');
         // chatList.appendChild(paragraph);
         chatStore().$state.chatList.push(loginmessage);
+
+        // 알림용 store에 추가
+        const store = chatNotificationStore();
+        store.addNotification(loginmessage);
 
         // 해당 login의 사용자에 대한 RTCPeer 객체 생성
         const newPeer = new RemotePeer(parsedMessage.from, parsedMessage.data.username);
@@ -265,12 +272,20 @@ function onmessageHandler(event) {
         // document.body.appendChild(paragraph);
         chatStore().$state.chatList.push(logoutmessage);
 
+        // 알림용 store에 추가
+        const store = chatNotificationStore();
+        store.addNotification(logoutmessage);
 
         // 해당 사용자의 sessionId를 id로 하는 video 태그 삭제
         let videoElement = document.getElementById(parsedMessage.data.sessionId);
         if (videoElement) {
             videoElement.remove();
         }
+
+        // 로그아웃한 사용자를 remoteStreamStore에서 삭제
+        remoteStreamStore().$state.remoteStream = remoteStreamStore().$state.remoteStream.filter(
+            user => user.id !== parsedMessage.data.id
+        );
 
         // 해당 사용자의 remotePeer 객체 삭제
         let index = remotePeers.findIndex(peer => peer.sessionId === parsedMessage.data.sessionId);
@@ -446,7 +461,7 @@ window.onload = function () {
 
 
 window.sendChat = sendChat;
-function sendChat(event) {
+export function sendChat(event) {
     event.preventDefault();
 
     const myUsername = myInfoStore().$state.myUsername;
@@ -461,14 +476,13 @@ function sendChat(event) {
 
     //let paragraph = document.createElement("li");
     //paragraph.style.color = "blue"; // 내가 보낸 chat
-    let text = "true,"+sender + " : " + chatInput;
+    let text = "true," + sender + " : " + chatInput;
     //paragraph.appendChild(text);
 
     // ChatList 태그에 추가
     // let chatList = document.getElementById('ChatList');
     // chatList.appendChild(paragraph);
     chatStore().$state.chatList.push(text);
-
 
     remoteDataChannels.forEach(dataChannel => {
         if (dataChannel.readyState === 'open') {
@@ -491,11 +505,15 @@ function onChatHandler(event) {
     let chatInput = chatMessage.chatInput;
 
     // let paragraph = document.createElement("li");
-    let text ="false,"+sender + " : " + chatInput;
+    let text = "false," + sender + " : " + chatInput;
     // paragraph.appendChild(text);
 
     // ChatList에 추가
     // let chatList = document.getElementById('ChatList');
     // chatList.appendChild(paragraph);
     chatStore().$state.chatList.push(text);
+
+    // 알림용 store에 추가
+    const store = chatNotificationStore();
+    store.addNotification(text);
 }

@@ -1,26 +1,22 @@
 <script setup lang="ts">
-import { myInfoStore, currentViewStore, layoutStore } from '../stores/store'
+import { myInfoStore } from '../stores/store'
 import { onMounted } from 'vue'
 
 // 렌더링 시 방번호 표시
-const hideChatInfo = () => {
-  currentViewStore().$state.currentView = 'ChatRoom'
-}
-
 onMounted(() => {
-  document.getElementById('roomNumber').textContent = myInfoStore().$state.myRoomrequest
+  const roomNumber = document.getElementById('roomNumber') as HTMLElement
+  roomNumber.textContent = myInfoStore().$state.myRoomrequest
 })
 </script>
 
 <template>
+  <p class="text-center text-4xl mb-5">Chat Info</p>
   <div>
-    <p>!!!ShareRoomNumber.vue!!!</p>
-    <button v-show="!layoutStore().$state.isDesktop" @click="hideChatInfo()">X</button>
-    <div>
-      <p id="roomNumber"></p>
-    </div>
-    <button id="shareButton" onclick="shareRoomNumber()">공유</button>
+    <p id="roomNumber" class="overflow-auto max-h-16 text-sm p-1 mb-1 border border-gray-500 "></p>
   </div>
+  <button id="shareButton" onclick="shareRoomNumber()" class="text-sm bg-teal-500 text-white rounded-full h-12">
+    공유 <i class="fas fa-share"></i>
+  </button>
 </template>
 
 <style></style>

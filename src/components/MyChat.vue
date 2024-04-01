@@ -3,22 +3,20 @@ import { myStreamStore } from '../stores/store'
 </script>
 
 <template>
-  <div>
-    <p>!!!MyChat.vue!!!</p>
+  <div class="flex items-center justify-center w-[640px] mr-auto p-5 rounded-l-2xl shadow-2xl" >
     <video
       id="myVideo"
       :srcObject="myStreamStore().$state.myStream"
-      class="video"
       autoplay
-      controls
       autopictureinpicture
+      class="rounded-2xl shadow-2xl"
     ></video>
   </div>
 </template>
 
 <style scoped>
-.video {
+#myVideo {
   width: 320px;
-  height: auto;
+  height: 240px;
 }
 </style>

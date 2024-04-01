@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import ChatLogin from './views/ChatLogin.vue'
-import ChatRoom from './views/ChatRoom.vue'
-import ChatInfo from './views/ChatInfo.vue'
+import ChatInfo from './components/ChatInfo.vue'
+import MyChat from './components/MyChat.vue'
+import RemoteChats from './components/RemoteChats.vue'
+import ChatNotification from './components/ChatNotification.vue'
 
 import { currentViewStore, layoutStore } from './stores/store'
 
@@ -19,37 +21,73 @@ onUnmounted(() => {
 function updateIsDesktop() {
   layoutStore().$state.isDesktop = window.innerWidth >= 768
 }
+
+// 모바일용 ChatInfo 토글
+function toggleChatInfo() {
+  // ChatInfo와 ChatRoom state 전환
+  currentViewStore().$state.currentView =
+    currentViewStore().$state.currentView === 'ChatInfo' ? 'ChatRoom' : 'ChatInfo'
+
+  // Chatroom에서 누르면 pip모드로 전환
+  const myVideo = document.getElementById('myVideo') as HTMLVideoElement
+  if (
+    myVideo && // myVideo가 존재하고
+    typeof myVideo.requestPictureInPicture === 'function' && // pip모드 기능이 있고
+    document.pictureInPictureElement === null // 현재 페이지에 pip모드가 실행중이지 않은 경우
+  ) {
+    myVideo.requestPictureInPicture().then(() => {
+      myVideo.play() // pip모드 실행 후 바로 재생 시작 (없으면 멈추는경우도 있음)
+    })
+  }
+
+  // ChatInfo에서 누르면 pip모드 해제
+  if (document.pictureInPictureElement) {
+    // 현재 페이지에 pip모드가 실행중인 경우
+    document.exitPictureInPicture() // pip모드 해제
+  }
+}
 </script>
 
 <template>
-  <p>!!!App.vue!!!</p>
-  <!-- 모바일 -->
-  <div v-if="!layoutStore().$state.isDesktop" class="chat-container">
+  <div class="border-black bg-zinc-100 h-full p-5 min-w-48">
+    <!--로그인 (공통)-->
     <ChatLogin v-if="currentViewStore().$state.currentView === 'ChatLogin'" />
-    <ChatRoom v-if="currentViewStore().$state.currentView === 'ChatRoom'" />
-    <ChatInfo v-if="currentViewStore().$state.currentView === 'ChatInfo'" />
-  </div>
 
-  <!-- 데스크탑 -->
-  <div v-if="layoutStore().$state.isDesktop" class="chat-container">
-    <ChatLogin v-if="currentViewStore().$state.currentView === 'ChatLogin'" />
-    <div v-if="currentViewStore().$state.currentView === 'ChatRoom'" class="ChatDesktop">
-      <ChatRoom class="ChatRoom" />
-      <ChatInfo class="ChatInfo" />
+    <!-- 모바일 -->
+    <div v-if="!layoutStore().$state.isDesktop">
+      <div v-if="currentViewStore().$state.currentView === 'ChatRoom'">
+        <h1 class="bg-blue-100 w-full h-10 text-2xl text-center mb-5 rounded-2xl shadow-2xl">
+          WebRTC
+        </h1>
+        <MyChat class="w-full rounded-2xl bg-gray-200 mb-5" />
+        <RemoteChats class="w-full rounded-2xl bg-slate-200 shadow-2xl" />
+      </div>
+      <ChatInfo v-if="currentViewStore().$state.currentView === 'ChatInfo'" class="h-full" />
+      <button
+        v-if="currentViewStore().$state.currentView !== 'ChatLogin'"
+        class="fixed right-0 top-0 m-5 bg-slate-300 w-10 h-10 rounded-full shadow-2xl"
+        @click="toggleChatInfo()"
+      >
+        <i class="fa-solid fa-bars text-gray-500"></i>
+      </button>
+      <ChatNotification
+        v-if="currentViewStore().$state.currentView === 'ChatRoom'"
+        class="w-1/2 fixed right-0 bottom-0"
+      />
+    </div>
+
+    <!-- 데스크탑 -->
+    <div
+      v-if="layoutStore().$state.isDesktop && currentViewStore().$state.currentView !== 'ChatLogin'"
+      class="h-full"
+    >
+      <div v-if="currentViewStore().$state.currentView !== 'ChatLogin'" class="flex h-full">
+        <MyChat class="w-[400px] bg-gray-200" />
+        <RemoteChats class="bg-slate-300" />
+        <ChatInfo class="w-[400px]" />
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-.ChatDesktop {
-  display: flex;
-  flex-direction: row;
-}
-.ChatDesktop > .ChatRoom {
-  display: flex;
-  width: 80%;
-}
-.ChatDesktop > .ChatInfo {
-  width: 250px;
-}
-</style>
+<style scoped></style>

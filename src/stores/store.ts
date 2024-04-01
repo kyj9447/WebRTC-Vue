@@ -51,3 +51,18 @@ export const chatStore = defineStore('chat', {
     }
   }
 })
+
+export const chatNotificationStore = defineStore('chatNotification', {
+  state: () => ({
+    notifications: [] as String[],
+  }),
+  actions: {
+    addNotification(message: String) {
+      this.notifications.push(message);
+      setTimeout(() => {
+        // this.notifications = this.notifications.filter(noti => noti !== message); // 똑같은 메세지를 연속으로 보내면 한번에 삭제됨
+        this.notifications.shift(); // 맨 앞에 있는 메세지 삭제하는식으로 변경
+      }, 3000);
+    },
+  },
+})

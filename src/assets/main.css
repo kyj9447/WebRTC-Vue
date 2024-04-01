@@ -1,8 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
-  border: 1px solid blue;
-  padding: 2px;
+  font-family: 'Roboto', sans-serif;
+  outline: 0px dotted skyblue;
+  outline-offset: -1px;
 }
 
-#app{
-  min-width: 400px;
-}
