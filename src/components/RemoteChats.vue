@@ -10,11 +10,12 @@ import { remoteStreamStore } from '../stores/store'
       :id="video.id"
       class="video m-5 relative w-4/5 bg-white rounded-2xl shadow-2xl overflow-hidden"
     >
-      <video :srcObject="video.srcObject" autoplay class="m-auto shadow-2xl max-h-52 "></video>
-      <div class="absolute top-0 left-0 bg-black text-white w-full opacity-50 pl-2">{{ video.dataset.username }}</div>
+      <video :srcObject="video.srcObject" autoplay class="m-auto shadow-2xl max-h-52"></video>
+      <div class="absolute top-0 left-0 bg-black text-white w-full opacity-50 pl-2">
+        {{ video.dataset.username }}
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

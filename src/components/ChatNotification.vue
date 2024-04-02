@@ -15,7 +15,6 @@ import { chatNotificationStore } from '../stores/store'
 </template>
 
 <style scoped>
-
 .list-enter-active {
   animation: slide-in 0.5s forwards;
 }

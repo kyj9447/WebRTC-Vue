@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { sendChat } from "../components/WebRTC.js";
+import { sendChat } from '../components/WebRTC'
 </script>
 
 <template>
@@ -13,7 +13,7 @@ import { sendChat } from "../components/WebRTC.js";
   />
   <button
     id="sendButton"
-    onclick="sendChat(event)"
+    @click="sendChat($event)"
     class="text-sm bg-teal-500 text-white rounded-full h-12"
   >
     보내기 <i class="fa-regular fa-paper-plane"></i>

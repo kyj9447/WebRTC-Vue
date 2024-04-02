@@ -3,7 +3,7 @@ import { myStreamStore } from '../stores/store'
 </script>
 
 <template>
-  <div class="flex items-center justify-center w-[640px] mr-auto p-5 rounded-l-2xl shadow-2xl" >
+  <div class="flex items-center justify-center w-[640px] mr-auto p-5 rounded-l-2xl shadow-2xl">
     <video
       id="myVideo"
       :srcObject="myStreamStore().$state.myStream"

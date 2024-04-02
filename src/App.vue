@@ -49,20 +49,32 @@ function toggleChatInfo() {
 </script>
 
 <template>
-  <div class="border-black bg-zinc-100 h-full p-5 min-w-48">
+  <div class="border-black bg-zinc-100 h-full p-5 min-w-48" v-bind="$attrs">
     <!--로그인 (공통)-->
     <ChatLogin v-if="currentViewStore().$state.currentView === 'ChatLogin'" />
 
     <!-- 모바일 -->
     <div v-if="!layoutStore().$state.isDesktop">
-      <div v-if="currentViewStore().$state.currentView === 'ChatRoom'">
-        <h1 class="bg-blue-100 w-full h-10 text-2xl text-center mb-5 rounded-2xl shadow-2xl">
-          WebRTC
-        </h1>
-        <MyChat class="w-full rounded-2xl bg-gray-200 mb-5" />
-        <RemoteChats class="w-full rounded-2xl bg-slate-200 shadow-2xl" />
-      </div>
-      <ChatInfo v-if="currentViewStore().$state.currentView === 'ChatInfo'" class="h-full" />
+      <!-- ChatRoom -->
+      <Transition name="fade" mode="out-in">
+        <div v-if="currentViewStore().$state.currentView === 'ChatRoom'">
+          <h1 class="bg-blue-100 w-full h-10 text-2xl text-center mb-5 rounded-2xl shadow-2xl">
+            WebRTC
+          </h1>
+          <MyChat class="w-full rounded-2xl bg-gray-200 mb-5" />
+          <RemoteChats class="w-full rounded-2xl bg-slate-200 shadow-2xl" />
+        </div>
+      </Transition>
+
+      <!-- ChatInfo -->
+      <Transition name="slide">
+        <ChatInfo
+          v-if="currentViewStore().$state.currentView === 'ChatInfo'"
+          class="h-full fixed right-0 bottom-0 w-full border border-gray-200 shadow-2xl bg-slate-100"
+        />
+      </Transition>
+
+      <!-- ChatRoom, ChatInfo 토글 버튼 -->
       <button
         v-if="currentViewStore().$state.currentView !== 'ChatLogin'"
         class="fixed right-0 top-0 m-5 bg-slate-300 w-10 h-10 rounded-full shadow-2xl"
@@ -70,6 +82,8 @@ function toggleChatInfo() {
       >
         <i class="fa-solid fa-bars text-gray-500"></i>
       </button>
+
+      <!-- 채팅 알림 -->
       <ChatNotification
         v-if="currentViewStore().$state.currentView === 'ChatRoom'"
         class="w-1/2 fixed right-0 bottom-0"
@@ -90,4 +104,31 @@ function toggleChatInfo() {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.slide-enter-active {
+  transition: all 0.5s ease;
+}
+
+.slide-leave-active {
+  transition: all 0.5s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+.fade-enter-active {
+  transition: opacity 0.5s;
+}
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

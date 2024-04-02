@@ -1,7 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { startChat, randomRoom } from '../components/WebRTC'
+// Rest of the code...
+</script>
 
 <template>
-  <form onsubmit="startChat(event)">
+  <form @submit.prevent="startChat">
     <div class="flex-col">
       <input
         class="w-3/4 h-10 p-2 bg-transparent border-2 border-gray-500 mb-5 border-r-0"
@@ -14,7 +17,7 @@
         class="w-1/4 h-10 bg-teal-500 text-white rounded disabled:bg-gray-400"
         type="button"
         id="randomButton"
-        onclick="randomRoom()"
+        @click.prevent="randomRoom"
       >
         <i class="fas fa-random"></i>
       </button>

@@ -3,7 +3,7 @@ import { chatStore } from '../stores/store'
 </script>
 
 <template>
-  <div class="w-full border border-gray-500  ">
+  <div class="w-full border border-gray-500">
     <ul class="ChatList max-w-full overflow-auto">
       <li class="bg-gray-200 border border-gray-300">Chat Message 1</li>
       <li class="bg-gray-200 border border-gray-300">Chat Message 2</li>
@@ -42,6 +42,6 @@ li {
   border-radius: 0.5rem;
   padding: 5px;
   word-break: break-all;
-  margin: 5px
+  margin: 5px;
 }
 </style>

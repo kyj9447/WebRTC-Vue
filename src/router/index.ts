@@ -5,13 +5,13 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "App",
+      path: '/',
+      name: 'App',
       component: App
     },
     {
-      path: "/:roomNumber",
-      name: "AppByRoomNumber",
+      path: '/:roomNumber',
+      name: 'AppByRoomNumber',
       component: App
     }
   ]
