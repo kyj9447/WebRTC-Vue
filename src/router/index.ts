@@ -11,7 +11,7 @@ const router = createRouter({
     },
     {
       path: "/:roomNumber",
-      name: "App",
+      name: "AppByRoomNumber",
       component: App
     }
   ]
