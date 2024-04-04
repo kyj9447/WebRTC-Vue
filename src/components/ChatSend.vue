@@ -14,7 +14,7 @@ import { sendChat } from '../components/WebRTC'
   <button
     id="sendButton"
     @click="sendChat($event)"
-    class="text-sm bg-teal-500 text-white rounded-full h-12"
+    class="text-sm bg-teal-600 text-white rounded-full h-12"
   >
     보내기 <i class="fa-regular fa-paper-plane"></i>
   </button>

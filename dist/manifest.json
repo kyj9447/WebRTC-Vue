@@ -5,6 +5,7 @@
   "description": "A simple chat app using Web RTC",
   "scope": ".",
   "start_url": "./",
+  "display_override": ["fullscreen", "minimal-ui"],
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
@@ -40,21 +41,7 @@
       "name": "새 창",
       "short_name": "새 창",
       "description": "새 창 열기",
-      "url": "./",
-      "icons": [
-        {
-          "src": "img/icons/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png",
-          "purpose": "any"
-        }
-      ]
-    },
-    {
-      "name": "PIP 모드",
-      "short_name": "PIP",
-      "description": "PIP 모드로 전환",
-      "url": "./",
+      "url": "/",
       "icons": [
         {
           "src": "img/icons/icon-192.png",

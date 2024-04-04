@@ -1,7 +1,7 @@
 const CACHE_NAME = 'WebRTC Chat v0.1'
 
 // cache 목록
-const urlsToCache = ['index.html','index.js','index.css', 'favicon.ico']
+const urlsToCache = ['index.html','favicon.ico']
 
 // cache 목록 등록 및 install 시 cache 목록이 다운
 self.addEventListener('install', function (event) {

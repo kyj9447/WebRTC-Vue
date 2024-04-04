@@ -14,10 +14,11 @@ import { startChat, randomRoom } from '../components/WebRTC'
         placeholder="방 번호"
       />
       <button
-        class="w-1/4 h-10 bg-teal-500 text-white rounded disabled:bg-gray-400"
+        class="w-1/4 h-10 bg-teal-600 text-white rounded disabled:bg-gray-400"
         type="button"
         id="randomButton"
         @click.prevent="randomRoom"
+        aria-label="RandomRoom"
       >
         <i class="fas fa-random"></i>
       </button>
@@ -29,7 +30,7 @@ import { startChat, randomRoom } from '../components/WebRTC'
         placeholder="사용자 이름"
       />
       <button
-        class="w-1/4 h-10 bg-teal-500 text-white rounded"
+        class="w-1/4 h-10 bg-teal-600 text-white rounded"
         type="submit"
         id="loginButton"
         value="LogIn"

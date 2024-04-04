@@ -1,5 +1,4 @@
 import express from 'express';
-const serveStatic = express.static;
 import {createServer}  from 'https';
 import { WebSocketServer } from 'ws';
 import  {readFileSync}  from 'fs';
@@ -7,37 +6,18 @@ import { format as _format, createLogger, transports as _transports } from 'wins
 import  {randomUUID}  from 'crypto';
 import  {fileURLToPath}  from 'url';
 import path,{ dirname } from 'path';
+import compression from 'compression';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
 
+// 압축 사용 !!!다른 라우터들보다 먼저 나와야함!!!
+app.use(compression({level: 6}));
+
 // script,views,asset 폴더 안의 모든 파일에 대한 응답
-app.use(serveStatic('/dist'));
-app.use(serveStatic('/dist/assets'));
-app.use(serveStatic('/dist/img'));
 app.use(express.static(path.join(__dirname, 'dist')));
-
-// 뷰 렌더링
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/dist/index.html', 'utf8');
-});
-
-// index.js 요청에 대한 응답
-app.get('/assets/index.js', (req, res) => {
-    res.sendFile(__dirname + '/dist/index.js');
-});
-
-// manifest 요청에 대한 응답
-app.get('/manifest.json', (req, res) => {
-    res.sendFile(__dirname + '/dist/manifest.json');
-});
-
-// favicon.ico 요청에 대한 응답
-app.get('/favicon.ico', (req, res) => {
-    res.sendFile(__dirname + '/dist/favicon.ico');
-});
 
 // HTTPS 서버 옵션
 const options = {
@@ -57,10 +37,13 @@ httpsServer.listen(443, () => {
     logger.info('https server is listening on port 443');
 });
 
-// 100자 이상은 줄임표로 바꾸는 winston format
+// winston 출력 글자 수 제한
+const maxLogLength = 100;
+
+// N자 이상은 줄임표로 바꾸는 winston format
 const myFormat = _format.printf(({ level, message, timestamp }) => {
     if (message.length > 100) {
-        message = message.substring(0, 100) + '...';
+        message = message.substring(0, maxLogLength) + '...';
     }
     return `[${timestamp}]${level}: ${message}`;
 });

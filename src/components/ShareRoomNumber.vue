@@ -18,7 +18,7 @@ onMounted(() => {
   <button
     id="shareButton"
     @click.prevent="shareRoomNumber"
-    class="text-sm bg-teal-500 text-white rounded-full h-12"
+    class="text-sm bg-teal-600 text-white rounded-full h-12"
   >
     공유 <i class="fas fa-share"></i>
   </button>
