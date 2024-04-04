@@ -1,4 +1,6 @@
 node_modules
+app
+.gradle
 .vscode
 cypress
 src/components/__tests__
@@ -7,3 +9,17 @@ src/components/__tests__
 cypress.config.ts
 src/components/WebRTC copy.js
 SSL
+android.keystore
+gradlew
+gradlew.bat
+build.gradle
+manifest-checksum.txt
+settings.gradle
+store_icon.png
+twa-manifest.json
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+gradle.properties
+app-release-unsigned-aligned.apk
+app-release-signed.apk.idsig
+app-release-bundle.aab
