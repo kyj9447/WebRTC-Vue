@@ -13,16 +13,6 @@ const router = createRouter({
       path: '/:roomNumber',
       name: 'AppByRoomNumber',
       component: App
-    },
-    {
-      path: '/?newWindow=true',
-      name: 'NewWindow',
-      component: App
-    },
-    {
-      path: '/?togglePIP=true',
-      name: 'togglePIP',
-      component: App
     }
   ]
 })
