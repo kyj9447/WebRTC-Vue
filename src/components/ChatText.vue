@@ -5,17 +5,13 @@ import { chatStore } from '../stores/store'
 <template>
   <div class="w-full border border-gray-500">
     <ul class="ChatList max-w-full overflow-auto">
-      <li class="bg-gray-200 border border-gray-300">Chat Message 1</li>
-      <li class="bg-gray-200 border border-gray-300">Chat Message 2</li>
-      <li class="bg-gray-200 border border-gray-300">Chat Message 3</li>
       <li
         v-for="(chat, index) in chatStore().$state.chatList"
         :key="index"
         :style="chat.split(',', 2)[0] === 'true' ? { color: 'blue' } : { color: 'black' }"
         class="animate-grow bg-gray-200 border border-gray-300"
-      >
-        {{ chat.split(',', 2)[1] }}
-      </li>
+        v-html="chat.split(',', 2)[1].split(':').join(':<br/>')"
+      ></li>
     </ul>
   </div>
 </template>

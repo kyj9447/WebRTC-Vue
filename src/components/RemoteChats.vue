@@ -8,9 +8,9 @@ import { remoteStreamStore } from '../stores/store'
       v-for="(video, index) in remoteStreamStore().$state.remoteStream"
       :key="index"
       :id="video.id"
-      class="video m-5 relative w-4/5 bg-white rounded-2xl shadow-2xl overflow-hidden"
+      class="video m-5 relative w-4/5 bg-gray-500 rounded-2xl shadow-2xl overflow-hidden"
     >
-      <video :srcObject="video.srcObject" autoplay class="m-auto shadow-2xl max-h-52"></video>
+      <video :srcObject="video.srcObject" autoplay class="m-auto shadow-2xl max-h-64 w-full"></video>
       <div class="absolute top-0 left-0 bg-black text-white w-full opacity-50 pl-2">
         {{ video.dataset.username }}
       </div>

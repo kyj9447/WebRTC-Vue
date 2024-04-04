@@ -5,11 +5,14 @@
   "description": "A simple chat app using Web RTC",
   "scope": ".",
   "start_url": "./",
-  "display_override": ["fullscreen", "minimal-ui"],
+  "display_override": ["fullscreen","minimal-ui","window-controls-overlay"],
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#000000",
+  "launch_handler": {
+    "client_mode": "auto"
+  },
   "icons": [
     {
       "src": "img/icons/icon-512.png",
@@ -34,6 +37,29 @@
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "img/screenshots/login.png",
+      "sizes": "571x999",
+      "type": "image/png"
+    },
+    {
+      "src": "img/screenshots/chatDesktop.png",
+      "sizes": "1920x1200",
+      "form_factor": "wide",
+      "type": "image/png"
+    },
+    {
+      "src": "img/screenshots/chatMobile.png",
+      "sizes": "491x1087",
+      "type": "image/png"
+    },
+    {
+      "src": "img/screenshots/textMobile.png",
+      "sizes": "490x1088",
+      "type": "image/png"
     }
   ],
   "shortcuts": [
