@@ -9,7 +9,7 @@ import { currentViewStore, layoutStore } from './stores/store'
 
 import { onMounted, onUnmounted } from 'vue'
 
-layoutStore().$state.isDesktop = window.innerWidth >= 768
+layoutStore().$state.isDesktop = window.innerWidth / window.innerHeight > 1
 onMounted(() => {
   window.addEventListener('resize', updateIsDesktop)
 })
@@ -19,7 +19,7 @@ onUnmounted(() => {
 })
 
 function updateIsDesktop() {
-  layoutStore().$state.isDesktop = window.innerWidth >= 768
+  layoutStore().$state.isDesktop = window.innerWidth / window.innerHeight > 1
 }
 
 // 모바일용 ChatInfo 토글

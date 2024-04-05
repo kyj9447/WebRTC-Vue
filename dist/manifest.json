@@ -7,7 +7,7 @@
   "start_url": "./",
   "display_override": ["fullscreen","minimal-ui","window-controls-overlay"],
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": ["portrait","landscape"],
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "launch_handler": {
