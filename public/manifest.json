@@ -3,11 +3,21 @@
   "name": "Web RTC Chat App",
   "short_name": "RTC Chat",
   "description": "A simple chat app using Web RTC",
+  "lang": "KR",
+  "categories": [
+    "social"
+  ],
+  "prefer_related_applications": true,
   "scope": ".",
   "start_url": "./",
-  "display_override": ["fullscreen","minimal-ui","window-controls-overlay"],
+  "dir": "auto",
+  "display_override": [
+    "fullscreen",
+    "minimal-ui",
+    "window-controls-overlay"
+  ],
   "display": "standalone",
-  "orientation": ["portrait","landscape"],
+  "orientation": ["portrait", "landscape"],
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "launch_handler": {
