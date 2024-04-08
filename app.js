@@ -18,6 +18,9 @@ app.use(compression({level: 6}));
 
 // script,views,asset 폴더 안의 모든 파일에 대한 응답
 app.use(express.static(path.join(__dirname, 'dist')));
+app.get('/.well-known/assetlinks.json', (req, res) => {
+    res.sendFile(path.join(__dirname, '/.well-known/assetlinks.json'));
+});
 
 // HTTPS 서버 옵션
 const options = {
