@@ -13,9 +13,9 @@ const configuration = {
       urls: 'stun:stun.l.google.com:19302'
     },
     {
-      urls: 'turn:kyj9447.iptime.org:50001',
-      username: 'test',
-      credential: 'test'
+      urls: 'turn:kyj9447.iptime.org:3478',
+      username: 'kyj9447',
+      credential: 'kyj0407'
     }
   ]
 }

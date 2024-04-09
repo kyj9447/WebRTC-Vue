@@ -1,12 +1,13 @@
 import express from 'express';
-import {createServer}  from 'https';
+import { createServer } from 'https';
 import { WebSocketServer } from 'ws';
-import  {readFileSync}  from 'fs';
+import { readFileSync } from 'fs';
 import { format as _format, createLogger, transports as _transports } from 'winston';
-import  {randomUUID}  from 'crypto';
-import  {fileURLToPath}  from 'url';
-import path,{ dirname } from 'path';
+import { randomUUID } from 'crypto';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
 import compression from 'compression';
+import Turn from 'node-turn';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,7 +15,7 @@ const __dirname = dirname(__filename);
 const app = express();
 
 // 압축 사용 !!!다른 라우터들보다 먼저 나와야함!!!
-app.use(compression({level: 6}));
+app.use(compression({ level: 6 }));
 
 // script,views,asset 폴더 안의 모든 파일에 대한 응답
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -32,8 +33,22 @@ const options = {
 // HTTPS 서버 생성
 const httpsServer = createServer(options, app);
 
+// TURN 서버 옵션
+const TURNserver = new Turn({
+    // set options
+    authMech: 'long-term',
+    credentials: {
+        username: "kyj9447",
+        password: "kyj0407"
+    },
+    listeningPort: 3478,
+});
+
+// TURN 서버 시작
+TURNserver.start();
+
 // 웹소켓 서버 생성
-const wss = new WebSocketServer({server:httpsServer});
+const wss = new WebSocketServer({ server: httpsServer });
 
 // 서버 리스닝 (443)
 httpsServer.listen(443, () => {

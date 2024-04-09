@@ -20,6 +20,7 @@
     "clsx": "^2.1.0",
     "compression": "^1.7.4",
     "lucide-react": "^0.363.0",
+    "node-turn": "^0.0.6",
     "pinia": "^2.1.7",
     "register-service-worker": "^1.7.2",
     "serve-static": "^1.15.0",
