@@ -38,10 +38,10 @@ const TURNserver = new Turn({
     // set options
     authMech: 'long-term',
     credentials: {
-        username: "kyj9447",
-        password: "kyj0407"
+        kyj9447: 'kyj0407',
     },
-    listeningPort: 3478,
+    listeningPort: 3478
+    //,debugLevel: 'ALL'
 });
 
 // TURN 서버 시작
