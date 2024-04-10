@@ -33,6 +33,14 @@ const options = {
 // HTTPS 서버 생성
 const httpsServer = createServer(options, app);
 
+// 서버 리스닝 (443)
+httpsServer.listen(443, () => {
+    logger.info('https server is listening on port 443');
+});
+
+// 웹소켓 서버 생성
+const wss = new WebSocketServer({ server: httpsServer });
+
 // TURN 서버 옵션
 const TURNserver = new Turn({
     // set options
@@ -45,14 +53,8 @@ const TURNserver = new Turn({
 });
 
 // TURN 서버 시작
-TURNserver.start();
-
-// 웹소켓 서버 생성
-const wss = new WebSocketServer({ server: httpsServer });
-
-// 서버 리스닝 (443)
-httpsServer.listen(443, () => {
-    logger.info('https server is listening on port 443');
+TURNserver.start().then(()=>{
+    console.log('TURN server is running on port 3478');
 });
 
 // winston 출력 글자 수 제한
