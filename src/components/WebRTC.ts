@@ -45,7 +45,7 @@ socket.onmessage = onmessageHandler
 navigator.mediaDevices
   .getUserMedia({
     video: { width: 320, height: 240 },
-    audio: false
+    audio: true
   })
   .then((stream) => {
     // 스토어에 저장

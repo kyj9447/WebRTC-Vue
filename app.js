@@ -14,6 +14,36 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
+//-------------------- winston 로그 설정 --------------------
+// winston 출력 글자 수 제한
+const maxLogLength = 100;
+
+// N자 이상은 줄임표로 바꾸는 winston format
+const myFormat = _format.printf(({ level, message, timestamp }) => {
+    if (message.length > 100) {
+        message = message.substring(0, maxLogLength) + '...';
+    }
+    return `[${timestamp}]${level}: ${message}`;
+});
+
+// winston logger 설정
+const logger = createLogger({
+    level: 'info',
+    format: _format.combine(
+        _format.colorize(),
+        _format.timestamp({
+            format: 'HH:mm'
+        }),
+        myFormat
+    ),
+    //defaultMeta: { service: 'app' },
+    transports: [
+        new _transports.Console(),
+        //new winston.transports.File({ filename: 'app.log' })
+    ]
+});
+//-------------------- winston 로그 설정 끝 ------------------
+
 // 압축 사용 !!!다른 라우터들보다 먼저 나와야함!!!
 app.use(compression({ level: 6 }));
 
@@ -49,41 +79,12 @@ const TURNserver = new Turn({
         kyj9447: 'kyj0407',
     },
     listeningPort: 3478
-    //,debugLevel: 'ALL'
+    ,debugLevel: 'ALL'
 });
 
 // TURN 서버 시작
-TURNserver.start().then(()=>{
-    console.log('TURN server is running on port 3478');
-});
-
-// winston 출력 글자 수 제한
-const maxLogLength = 100;
-
-// N자 이상은 줄임표로 바꾸는 winston format
-const myFormat = _format.printf(({ level, message, timestamp }) => {
-    if (message.length > 100) {
-        message = message.substring(0, maxLogLength) + '...';
-    }
-    return `[${timestamp}]${level}: ${message}`;
-});
-
-// winston logger 설정
-const logger = createLogger({
-    level: 'info',
-    format: _format.combine(
-        _format.colorize(),
-        _format.timestamp({
-            format: 'HH:mm'
-        }),
-        myFormat
-    ),
-    //defaultMeta: { service: 'app' },
-    transports: [
-        new _transports.Console(),
-        //new winston.transports.File({ filename: 'app.log' })
-    ]
-});
+TURNserver.start();
+logger.info('TURN server is listening on port 3478');
 
 // rooms 리스트
 const rooms = [];
