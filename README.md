@@ -51,7 +51,7 @@ npm run build
 
     1-3. 추가 PWA asset ( 앱 아이콘, 스크린샷 등 ) 파일 요청 처리
 
-    1-3. .well-known 내부 파일 요청 처리
+    1-4. .well-known 내부 파일 요청 처리
 
 #### 2. WSS ( 방 생성 및 참가, 해당 방의 Web RTC Peer간 사전정보 및 기타 정보 교환 제공 / 443번 포트 사용)
 
