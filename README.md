@@ -10,6 +10,8 @@ ICE ( Interactive Connectivity Establishment ) 프레임워크로 STUN, TURN 서
 #### 1. 로그인 화면 ( 데스크탑, 모바일 공통 )
 방 번호 입력부분 랜덤 버튼 클릭시 랜덤 UUID 생성 후 자동으로 서버에 중복확인 요청
 
+랜덤 대신 수동으로 직접 입력도 가능
+
 <img src="https://github.com/kyj9447/WebRTC-Vue/assets/122734245/cbc86639-2881-4a1c-9f36-94bc73ff86b4" width=200px>
 
 #### 2. 화상 채팅 화면 ( 모바일 )
