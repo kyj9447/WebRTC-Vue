@@ -45,15 +45,17 @@ npm run build
 
 #### 1. HTTPS ( 웹 페이지 제공 / 443번 포트 사용)
 
-      1-1. HTML, JS, CSS 요청 처리
+      1-1. HTML, JS, CSS 파일 요청 처리
 
-      1-2. PWA ( Progessive Web App ) 적용을 위한 manifest.json 파일과 추가 asset ( 앱 아이콘, 스크린샷 등 ) 요청 처리
+      1-2. PWA ( Progessive Web App ) 적용을 위한 manifest.json 파일 요청 처리
+
+      1-3. 추가 PWA asset ( 앱 아이콘, 스크린샷 등 ) 파일 요청 처리
 
       1-3. .well-known 내부 파일 요청 처리
 
 #### 2. WSS ( 방 생성 및 참가, 해당 방의 Web RTC Peer간 사전정보 및 기타 정보 교환 제공 / 443번 포트 사용)
 
-      2-1. 특정 방 사용자들의 WebRTC SDP ( Session Description Protocol : offer / answer / candidate ) 교환
+      2-1. 방 사용자들의 WebRTC SDP ( Session Description Protocol : offer / answer / candidate ) 교환
 
       2-2. 기타 정보 ( login, logout, randomCheck ) 교환
 
