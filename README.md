@@ -55,15 +55,16 @@ npm run build
 
 #### 2. WSS ( 방 생성 및 참가, 해당 방의 Web RTC Peer간 사전정보 및 기타 정보 교환 제공 / 443번 포트 사용)
 
-    2-1. 방 사용자들의 WebRTC SDP ( Session Description Protocol : offer / answer / candidate ) 교환
+    2-1. Room 사용자들의 WebRTC SDP ( Session Description Protocol : offer / answer / candidate ) 교환
 
     2-2. 기타 정보 ( login, logout, randomCheck ) 교환
 
     {type, from, to, data} 형태로 메세지를 보내고 받음
+    
     예시)
-    offer)     { type: 'offer',      from: sessionId,    to: '',              data: 'WebRTC offer' } => to All
-    answer)    { type: 'answer',     from: sessionId,    to: 'ws.sessionId',  data: 'WebRTC answer' } => to sessionId (from offer)
-    candidate) { type: 'candidate',  from: sessionId,    to: 'ws.sessionId',  data: 'WebRTC candidate' } => to sessionId (from answer)
+    offer)     { type: 'offer',      from: 'my-sessionId',  to: '',                  data: 'WebRTC offer' }     => to 방의 모든 사용자
+    answer)    { type: 'answer',     from: 'my-sessionId',  to: 'target-sessionId',  data: 'WebRTC answer' }    => to 방의 특정 사용자
+    candidate) { type: 'candidate',  from: 'my-sessionId',  to: 'target-sessionId',  data: 'WebRTC candidate' } => to 방의 특정 사용자
 
 
 #### 3. STUN ( P2P방식 연결을 위한 클라이언트의 공인IP 확인을 제공하는 서버 / 3478번 포트 사용)
