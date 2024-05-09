@@ -7,23 +7,23 @@ ICE ( Interactive Connectivity Establishment ) 프레임워크로 STUN, TURN 서
 
 데스크탑, 모바일별 별도 레이아웃 제공
 
-#### 로그인 화면 ( 데스크탑, 모바일 공통 )
+#### 1. 로그인 화면 ( 데스크탑, 모바일 공통 )
 방 번호 입력부분 랜덤 버튼 클릭시 랜덤 UUID 생성 후 자동으로 서버에 중복확인 요청 ( randomCheck 메세지 송신 )
 
 <img src="https://github.com/kyj9447/WebRTC-Vue/assets/122734245/cbc86639-2881-4a1c-9f36-94bc73ff86b4" width=200px>
 
-#### 화상 채팅 화면 ( 모바일 )
+#### 2. 화상 채팅 화면 ( 모바일 )
 
 <img src="https://github.com/kyj9447/WebRTC-Vue/assets/122734245/579faa46-ff39-46ef-84b8-e1e8275b9b39" width=200px>
 
-#### 텍스트 채팅 화면 ( 모바일 )
+#### 3. 텍스트 채팅 화면 ( 모바일 )
 WebRTC DataChannel을 통해 텍스트 기반 통신 활용
 
 우측 상단 버튼을 통해 해당 화면 진입시 PIP모드가 가능한 환경일경우 PIP 모드 실행
 
 <img src="https://github.com/kyj9447/WebRTC-Vue/assets/122734245/93110e84-c0a9-4e9b-b819-12f0442b50fb" width=200px>
 
-#### 화상, 텍스트 채팅 화면 ( 데스크탑 )
+#### 4. 화상, 텍스트 채팅 화면 ( 데스크탑 )
 
 <img src="https://github.com/kyj9447/WebRTC-Vue/assets/122734245/6b4bf0fe-e94d-467f-b710-4ae3a4786087" width=600px><br>
 
@@ -62,9 +62,14 @@ npm run build
     {type, from, to, data} 형태로 메세지를 보내고 받음
     
     예시)
-    offer)     { type: 'offer',      from: 'my-sessionId',  to: '',                  data: 'WebRTC offer' }     => to 방의 모든 사용자
-    answer)    { type: 'answer',     from: 'my-sessionId',  to: 'target-sessionId',  data: 'WebRTC answer' }    => to 방의 특정 사용자
-    candidate) { type: 'candidate',  from: 'my-sessionId',  to: 'target-sessionId',  data: 'WebRTC candidate' } => to 방의 특정 사용자
+    offer) => to 방의 모든 사용자
+    { type: 'offer',     from: 'my-sessionId', to: '',                 data: 'WebRTC offer' }
+    
+    answer) => to 방의 특정 사용자
+    { type: 'answer',    from: 'my-sessionId', to: 'target-sessionId', data: 'WebRTC answer' }
+    
+    candidate) => to 방의 특정 사용자
+    { type: 'candidate', from: 'my-sessionId', to: 'target-sessionId', data: 'WebRTC candidate' }
 
 
 #### 3. STUN ( P2P방식 연결을 위한 클라이언트의 공인IP 확인을 제공하는 서버 / 3478번 포트 사용)
