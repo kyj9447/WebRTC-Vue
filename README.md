@@ -43,7 +43,7 @@ npm run build
 
 ### HTTPS, WSS, TURN, STUN 서버를 제공하는 Node.js express 통합 서버
 
-#### 1. HTTPS ( 웹 페이지 제공 )
+#### 1. HTTPS ( 웹 페이지 제공 / 443번 포트 사용)
 
       1-1. HTML, JS, CSS 요청 처리
 
@@ -51,22 +51,22 @@ npm run build
 
       1-3. .well-known 내부 파일 요청 처리
 
-#### 2. WSS ( Web RTC Peer간 사전정보 및 기타 정보 교환 제공 )
+#### 2. WSS ( 방 생성 및 참가, 해당 방의 Web RTC Peer간 사전정보 및 기타 정보 교환 제공 / 443번 포트 사용)
 
       2-1. 특정 방 사용자들의 WebRTC SDP ( Session Description Protocol : offer / answer / candidate ) 교환
 
       2-2. 기타 정보 ( login, logout, randomCheck ) 교환
 
-#### 3. STUN ( P2P방식 연결을 위한 공인 IP 확인을 제공하는 서버 )
+#### 3. STUN ( P2P방식 연결을 위한 클라이언트의 공인IP 확인을 제공하는 서버 / 3478번 포트 사용)
 
-#### 4. TURN ( P2P방식 연결이 불가능할경우 WebRTC 패킷 데이터를 직접 중계하는 서버 )
+#### 4. TURN ( P2P방식 연결이 불가능할경우 WebRTC 패킷 데이터를 직접 중계하는 서버 / 3478번 포트 사용 )
 
 <sup>※STUN 서버는 클라이언트 측에서 Google의 STUN 서버를 우선 사용</sup>
 
 
 #### Server 실행
 
-<sup>(/SSL 폴더에 cert1.pem, privkey1.pem, chain1.pem 파일이 필요합니다. - HTTPS 서버용 키 / 별도 발급 필요)</sup>
+<sup>( /SSL 폴더에 cert1.pem, privkey1.pem, chain1.pem 파일이 필요합니다. - HTTPS 서버용 키 / 별도 발급 필요 )</sup>
 
 ```sh
 npm install
