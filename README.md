@@ -45,19 +45,26 @@ npm run build
 
 #### 1. HTTPS ( 웹 페이지 제공 / 443번 포트 사용)
 
-      1-1. HTML, JS, CSS 파일 요청 처리
+    1-1. HTML, JS, CSS 파일 요청 처리
 
-      1-2. PWA ( Progessive Web App ) 적용을 위한 manifest.json 파일 요청 처리
+    1-2. PWA ( Progessive Web App ) 적용을 위한 manifest.json 파일 요청 처리
 
-      1-3. 추가 PWA asset ( 앱 아이콘, 스크린샷 등 ) 파일 요청 처리
+    1-3. 추가 PWA asset ( 앱 아이콘, 스크린샷 등 ) 파일 요청 처리
 
-      1-3. .well-known 내부 파일 요청 처리
+    1-3. .well-known 내부 파일 요청 처리
 
 #### 2. WSS ( 방 생성 및 참가, 해당 방의 Web RTC Peer간 사전정보 및 기타 정보 교환 제공 / 443번 포트 사용)
 
-      2-1. 방 사용자들의 WebRTC SDP ( Session Description Protocol : offer / answer / candidate ) 교환
+    2-1. 방 사용자들의 WebRTC SDP ( Session Description Protocol : offer / answer / candidate ) 교환
 
-      2-2. 기타 정보 ( login, logout, randomCheck ) 교환
+    2-2. 기타 정보 ( login, logout, randomCheck ) 교환
+
+    {type, from, to, data} 형태로 메세지를 보내고 받음
+    예시)
+    offer)     { type: 'offer',      from: sessionId,    to: '',              data: 'WebRTC offer' } => to All
+    answer)    { type: 'answer',     from: sessionId,    to: 'ws.sessionId',  data: 'WebRTC answer' } => to sessionId (from offer)
+    candidate) { type: 'candidate',  from: sessionId,    to: 'ws.sessionId',  data: 'WebRTC candidate' } => to sessionId (from answer)
+
 
 #### 3. STUN ( P2P방식 연결을 위한 클라이언트의 공인IP 확인을 제공하는 서버 / 3478번 포트 사용)
 
