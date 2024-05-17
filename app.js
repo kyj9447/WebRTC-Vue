@@ -79,7 +79,7 @@ const TURNserver = new Turn({
         kyj9447: 'kyj0407',
     },
     listeningPort: 3478
-    ,debugLevel: 'ALL'
+    ,debugLevel: 'ERROR'
 });
 
 // TURN 서버 시작

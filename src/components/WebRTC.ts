@@ -11,7 +11,8 @@ const configuration = {
   iceServers: [
     {
       urls: 'stun:stun.l.google.com:19302'
-    },
+    }
+    ,
     {
       urls: 'turn:kyj9447.iptime.org:3478',
       username: 'kyj9447',
@@ -124,10 +125,43 @@ const onnegotiationneededHandler = (remotePeer: RemotePeer) => {
 
 // 연결 상태 변경 감지시
 const oniceconnectionstatechangeHandler = (remotePeer: RemotePeer) => {
-  //console.log('!!!oniceconnectionstatechange!!!');
+  console.log('!!!oniceconnectionstatechange!!!')
   if (remotePeer.RTCPeer) {
     console.log(remotePeer.RTCPeer.iceConnectionState)
   }
+
+  if (remotePeer.RTCPeer.iceConnectionState === 'disconnected') {
+    const logoutmessage = 'false,' + remotePeer.username + '님이 로그아웃하였습니다 (disconnected)'
+    // let paragraph = document.createElement("p");
+    // let text = document.createTextNode(logoutmessage);
+    // paragraph.appendChild(text);
+    // document.body.appendChild(paragraph);
+    chatStore().$state.chatList.push(logoutmessage)
+
+    // 알림용 store에 추가
+    const store = chatNotificationStore()
+    store.addNotification(logoutmessage)
+
+    // 해당 사용자의 sessionId를 id로 하는 video 태그 삭제
+    const videoElement = document.getElementById(remotePeer.sessionId)
+    if (videoElement) {
+      videoElement.remove()
+    }
+
+    // 로그아웃한 사용자를 remoteStreamStore에서 삭제
+    remoteStreamStore().$state.remoteStream = remoteStreamStore().$state.remoteStream.filter(
+      (user) => user.id !== remotePeer.sessionId
+    )
+
+    // 해당 사용자의 remotePeer 객체 삭제
+    const index = remotePeers.findIndex((peer) => peer.sessionId === remotePeer.sessionId)
+    if (index !== -1) {
+      const remotePeerToDelete = remotePeers.splice(index, 1)[0]
+      deleteRemotePeer(remotePeerToDelete)
+      //console.log("remote Deleted / current : "+JSON.stringify(remotePeers));
+    }
+  }
+  
 }
 
 // ontrack 이벤트 핸들러
@@ -203,6 +237,7 @@ function onmessageHandler(event: { data: string }) {
     const newPeer = new RemotePeer(parsedMessage.from, parsedMessage.username)
     remotePeers.push(newPeer)
     //console.log("current remotes : "+JSON.stringify(remotePeers));
+    console.log('offer 받음 : ' + JSON.stringify(parsedMessage.data))
 
     const myTracks = myStreamStore().$state.myTracks
     const myStream = myStreamStore().$state.myStream
@@ -287,7 +322,7 @@ function onmessageHandler(event: { data: string }) {
 
   // 5.logout을 받았을 때
   else if (parsedMessage.type === 'logout') {
-    const logoutmessage = 'false,' + parsedMessage.data.username + '님이 로그아웃하였습니다'
+    const logoutmessage = 'false,' + parsedMessage.data.username + '님이 로그아웃하였습니다 (logout)'
     // let paragraph = document.createElement("p");
     // let text = document.createTextNode(logoutmessage);
     // paragraph.appendChild(text);

@@ -8,6 +8,7 @@ import { myStreamStore } from '../stores/store'
       id="myVideo"
       :srcObject="myStreamStore().$state.myStream"
       autoplay
+      muted
       autopictureinpicture
       class="rounded-2xl shadow-2xl"
     ></video>
