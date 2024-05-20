@@ -11,8 +11,7 @@ const configuration = {
   iceServers: [
     {
       urls: 'stun:stun.l.google.com:19302'
-    }
-    ,
+    },
     {
       urls: 'turn:kyj9447.iptime.org:3478',
       username: 'kyj9447',
@@ -45,7 +44,11 @@ socket.onmessage = onmessageHandler
 // 미디어 스트림 가져오기
 navigator.mediaDevices
   .getUserMedia({
-    video: { width: 320, height: 240 },
+    video: {
+      width: 320,
+      height: 240,
+      frameRate: 30
+    },
     audio: true
   })
   .then((stream) => {
@@ -161,7 +164,6 @@ const oniceconnectionstatechangeHandler = (remotePeer: RemotePeer) => {
       //console.log("remote Deleted / current : "+JSON.stringify(remotePeers));
     }
   }
-  
 }
 
 // ontrack 이벤트 핸들러
@@ -322,7 +324,8 @@ function onmessageHandler(event: { data: string }) {
 
   // 5.logout을 받았을 때
   else if (parsedMessage.type === 'logout') {
-    const logoutmessage = 'false,' + parsedMessage.data.username + '님이 로그아웃하였습니다 (logout)'
+    const logoutmessage =
+      'false,' + parsedMessage.data.username + '님이 로그아웃하였습니다 (logout)'
     // let paragraph = document.createElement("p");
     // let text = document.createTextNode(logoutmessage);
     // paragraph.appendChild(text);
