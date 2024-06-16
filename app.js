@@ -14,6 +14,9 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
+const httpsPort = 9443;
+const turnPort =3478;
+
 //-------------------- winston 로그 설정 --------------------
 // winston 출력 글자 수 제한
 const maxLogLength = 100;
@@ -55,17 +58,16 @@ app.get('/.well-known/assetlinks.json', (req, res) => {
 
 // HTTPS 서버 옵션
 const options = {
-    cert: readFileSync('SSL/cert1.pem', 'utf8'),
-    key: readFileSync('SSL/privkey1.pem', 'utf8'),
-    ca: readFileSync('SSL/chain1.pem', 'utf8')
+    cert: readFileSync('SSL/fullchain.pem', 'utf8'),
+    key: readFileSync('SSL/privkey.pem', 'utf8')
 };
 
 // HTTPS 서버 생성
 const httpsServer = createServer(options, app);
 
 // 서버 리스닝 (443)
-httpsServer.listen(443, () => {
-    logger.info('https server is listening on port 443');
+httpsServer.listen(httpsPort, () => {
+    logger.info('https server is listening on port '+httpsPort);
 });
 
 // 웹소켓 서버 생성
@@ -78,13 +80,13 @@ const TURNserver = new Turn({
     credentials: {
         kyj9447: 'kyj0407',
     },
-    listeningPort: 3478
+    listeningPort: turnPort
     ,debugLevel: 'ERROR'
 });
 
 // TURN 서버 시작
 TURNserver.start();
-logger.info('TURN server is listening on port 3478');
+logger.info('TURN server is listening on port '+turnPort);
 
 // rooms 리스트
 const rooms = [];

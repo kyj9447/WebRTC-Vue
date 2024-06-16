@@ -22,7 +22,7 @@ const configuration = {
 
 //export let socket = null;
 //export var socket = new WebSocket("wss://kyj9447.iptime.org:3000")
-const socket = new WebSocket('wss://www.kyj9447.kr:443')
+const socket = new WebSocket('wss://www.kyj9447.kr:9443')
 // 이벤트 핸들러 설정
 socket.onmessage = onmessageHandler
 
