@@ -1,16 +1,16 @@
-import express from 'express';
-import { createServer } from 'https';
-import { WebSocketServer } from 'ws';
-import { readFileSync } from 'fs';
-import { format as _format, createLogger, transports as _transports } from 'winston';
-import { randomUUID } from 'crypto';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
-import compression from 'compression';
-import Turn from 'node-turn';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const express = require('express');
+const { createServer } = require('https');
+const { WebSocketServer } = require('ws');
+const { readFileSync } = require('fs');
+const { format, createLogger, transports } = require('winston');
+const { randomUUID } = require('crypto');
+const { fileURLToPath } = require('url');
+const path = require('path');
+const { dirname } = require('path');
+const compression = require('compression');
+const Turn = require('node-turn');
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
 const app = express();
 
@@ -22,7 +22,7 @@ const turnPort =3478;
 const maxLogLength = 100;
 
 // N자 이상은 줄임표로 바꾸는 winston format
-const myFormat = _format.printf(({ level, message, timestamp }) => {
+const myFormat = format.printf(({ level, message, timestamp }) => {
     if (message.length > 100) {
         message = message.substring(0, maxLogLength) + '...';
     }
@@ -32,16 +32,16 @@ const myFormat = _format.printf(({ level, message, timestamp }) => {
 // winston logger 설정
 const logger = createLogger({
     level: 'info',
-    format: _format.combine(
-        _format.colorize(),
-        _format.timestamp({
+    format: format.combine(
+        format.colorize(),
+        format.timestamp({
             format: 'HH:mm'
         }),
         myFormat
     ),
     //defaultMeta: { service: 'app' },
     transports: [
-        new _transports.Console(),
+        new transports.Console(),
         //new winston.transports.File({ filename: 'app.log' })
     ]
 });
@@ -58,8 +58,8 @@ app.get('/.well-known/assetlinks.json', (req, res) => {
 
 // HTTPS 서버 옵션
 const options = {
-    cert: readFileSync('SSL/fullchain.pem', 'utf8'),
-    key: readFileSync('SSL/privkey.pem', 'utf8')
+    cert: readFileSync('SSL/www.kyj9447.kr-crt.pem', 'utf8'),
+    key: readFileSync('SSL/www.kyj9447.kr-key.pem', 'utf8')
 };
 
 // HTTPS 서버 생성

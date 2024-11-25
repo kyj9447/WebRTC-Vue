@@ -8,3 +8,5 @@ cypress.config.ts
 src/components/WebRTC copy.js
 SSL
 WebRTC-app.js.bat
+vuedist.bat
+web-rtc-chat.exe
