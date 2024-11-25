@@ -2,6 +2,8 @@
   "name": "web-rtc-chat",
   "version": "0.0.0",
   "private": true,
+  "bin": "app.js",
+  "main": "app.js",
   "scripts": {
     "build": "run-p type-check \"build-only {@}\" --",
     "test:unit": "vitest",
@@ -52,6 +54,7 @@
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-vue": "^9.24.0",
     "jsdom": "^24.0.0",
+    "npm-run-all": "^4.1.5",
     "npm-run-all2": "^6.1.2",
     "postcss": "^8.4.38",
     "prettier": "^3.0.3",
@@ -66,5 +69,10 @@
     "webpack-bundle-analyzer": "^4.10.1",
     "workbox-webpack-plugin": "^7.0.0"
   },
-  "type": "module"
+  "type": "commonjs",
+  "pkg": {
+    "scripts": "app.js",
+    "targets": ["node18-win-x64"],
+    "assets": [ "dist/**/*" ]
+  }
 }
