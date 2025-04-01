@@ -45,7 +45,7 @@ npm run build
 
 ### HTTPS, WSS, TURN, STUN 서버를 제공하는 Node.js express 통합 서버
 
-#### 1. HTTPS ( 웹 페이지 제공 / 9443번 포트 사용)
+#### 1. HTTPS ( 웹 페이지 제공 / 443번 포트 사용)
 
     1-1. HTML, JS, CSS 파일 요청 처리
 
@@ -55,7 +55,7 @@ npm run build
 
     1-4. .well-known 내부 파일 요청 처리
 
-#### 2. WSS ( 방 생성 및 참가, 해당 방의 Web RTC Peer간 사전정보 및 기타 정보 교환 제공 / 9443번 포트 사용)
+#### 2. WSS ( 방 생성 및 참가, 해당 방의 Web RTC Peer간 사전정보 및 기타 정보 교환 제공 / 443번 포트 사용)
 
     2-1. Room 사용자들의 WebRTC SDP ( Session Description Protocol : offer / answer / candidate ) 교환
 
@@ -83,7 +83,7 @@ npm run build
 
 #### Server 실행
 
-<sup>( /SSL 폴더에 cert1.pem, privkey1.pem, chain1.pem 파일이 필요합니다. - HTTPS 서버용 키 / 별도 발급 필요 )</sup>
+<sup>( /SSL 폴더에 cert.pem, privkey.pem 파일이 필요합니다. - HTTPS 서버용 키 / 별도 발급 필요 )</sup>
 
 ```sh
 npm install
