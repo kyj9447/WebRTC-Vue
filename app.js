@@ -58,8 +58,8 @@ app.get('/.well-known/assetlinks.json', (req, res) => {
 
 // HTTPS 서버 옵션
 const options = {
-    cert: readFileSync('SSL/www.kyj9447.kr-crt.pem', 'utf8'),
-    key: readFileSync('SSL/www.kyj9447.kr-key.pem', 'utf8')
+    cert: readFileSync('SSL/cert.pem', 'utf8'),
+    key: readFileSync('SSL/privkey.pem', 'utf8')
 };
 
 // HTTPS 서버 생성
