@@ -13,6 +13,7 @@ import { myStreamStore } from '../stores/store'
           :srcObject="myStreamStore().$state.myStream"
           autoplay
           autopictureinpicture
+          muted
           class="mb-10 rounded-2xl shadow-2xl bg-gray-500"
         ></video>
       </div>

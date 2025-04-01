@@ -13,7 +13,7 @@ const configuration = {
       urls: 'stun:stun.l.google.com:19302'
     },
     {
-      urls: 'turn:kyj9447.iptime.org:3478',
+      urls: 'turn:'+import.meta.env.VITE_DOMAIN+':3478',
       username: 'kyj9447',
       credential: 'kyj0407'
     }
@@ -21,8 +21,7 @@ const configuration = {
 }
 
 //export let socket = null;
-//export var socket = new WebSocket("wss://kyj9447.iptime.org:3000")
-const socket = new WebSocket('wss://www.kyj9447.kr:9443')
+const socket = new WebSocket('wss://'+import.meta.env.VITE_DOMAIN+':9443')
 // 이벤트 핸들러 설정
 socket.onmessage = onmessageHandler
 
@@ -505,7 +504,7 @@ export function shareRoomNumber() {
   if (myRoomrequest !== '') {
     navigator.share({
       title: 'WebRTC 방 번호 공유하기',
-      url: 'https://www.kyj9447.kr:443?roomrequest=' + myRoomrequest
+      url: 'https://'+import.meta.env.VITE_DOMAIN+':443?roomrequest=' + myRoomrequest
     })
   }
 }

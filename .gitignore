@@ -10,3 +10,4 @@ SSL
 WebRTC-app.js.bat
 vuedist.bat
 web-rtc-chat.exe
+.env
