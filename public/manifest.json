@@ -16,7 +16,7 @@
     "minimal-ui",
     "window-controls-overlay"
   ],
-  "display": "standalone",
+  "display": "fullscreen",
   "orientation": ["portrait", "landscape"],
   "background_color": "#ffffff",
   "theme_color": "#000000",
