@@ -15,7 +15,8 @@
     "preview": "vite preview",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "type-check": "vue-tsc --build --force",
-    "package": "pkg . --out-path bin"
+    "package": "pkg . --out-path bin",
+    "deploy": "npm run build && pkg app.js --targets node18-linux-x64 --output server-linux && rm -rf /home/kyj9447/server/WebRTCVue/* && mkdir -p /home/kyj9447/server/WebRTCVue/dist && cp -r dist/* /home/kyj9447/server/WebRTCVue/dist/ && cp server-linux /home/kyj9447/server/WebRTCVue/ && cp -rP SSL ~/server/WebRTCVue/"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.1",
@@ -23,9 +24,11 @@
     "clsx": "^2.1.0",
     "compression": "^1.7.4",
     "express": "^4.21.1",
+    "index": "^0.4.0",
     "lucide-react": "^0.363.0",
     "node-turn": "^0.0.6",
     "pinia": "^2.1.7",
+    "pkg": "^5.8.1",
     "register-service-worker": "^1.7.2",
     "serve-static": "^1.15.0",
     "tailwind-merge": "^2.2.2",
@@ -57,7 +60,6 @@
     "jsdom": "^24.0.0",
     "npm-run-all": "^4.1.5",
     "npm-run-all2": "^6.1.2",
-    "pkg": "^5.8.1",
     "postcss": "^8.4.38",
     "prettier": "^3.0.3",
     "start-server-and-test": "^2.0.3",

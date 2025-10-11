@@ -12,6 +12,9 @@ const Turn = require('node-turn');
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
+// 현재 작업 디렉토리 기준
+const baseDir = process.cwd();
+
 const app = express();
 
 const httpsPort = 9443;
@@ -51,9 +54,9 @@ const logger = createLogger({
 app.use(compression({ level: 6 }));
 
 // script,views,asset 폴더 안의 모든 파일에 대한 응답
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(baseDir, 'dist')));
 app.get('/.well-known/assetlinks.json', (req, res) => {
-    res.sendFile(path.join(__dirname, '/.well-known/assetlinks.json'));
+    res.sendFile(path.join(baseDir, '/.well-known/assetlinks.json'));
 });
 
 // HTTPS 서버 옵션

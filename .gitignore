@@ -13,3 +13,4 @@ web-rtc-chat.exe
 .env
 bin/web-rtc-chat
 dist/
+server-linux
