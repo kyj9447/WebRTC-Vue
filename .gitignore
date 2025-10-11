@@ -12,3 +12,4 @@ vuedist.bat
 web-rtc-chat.exe
 .env
 bin/web-rtc-chat
+dist/
