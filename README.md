@@ -3,7 +3,7 @@
 
 ICE ( Interactive Connectivity Establishment ) 프레임워크로 STUN, TURN 서버를 통해 상대 Peer에 유동적으로 연결
 
-프론트엔드 프레임워크 : Vue 사용
+프론트엔드 구조 : 순수 HTML, JS, CSS 기반 SPA
 
 데스크탑, 모바일별 별도 레이아웃 제공
 
@@ -29,11 +29,21 @@ WebRTC DataChannel을 통해 텍스트 기반 통신 활용
 
 <img src="https://github.com/kyj9447/WebRTC-Vue/assets/122734245/6b4bf0fe-e94d-467f-b710-4ae3a4786087" width=600px><br>
 
-#### Vue 프로젝트 빌드
+#### SPA 프론트엔드 빌드
 
 ```sh
 npm install
 npm run build
+```
+
+`src/app/state.js`, `src/app/router.js`, `src/app/render.js`를 중심으로 프런트엔드 상태, 라우팅, 렌더링을 분리한 순수 SPA 구조를 사용합니다.
+
+#### Capacitor Android 앱 동기화
+
+```sh
+npm install
+npm run build:android
+npm run cap:open:android
 ```
 <br>
 

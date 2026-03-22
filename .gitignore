@@ -1,16 +1,1 @@
-node_modules
-.vscode
-cypress
-src/components/__tests__
-.eslintrc.cjs
-.prettierrc.json
-cypress.config.ts
-src/components/WebRTC copy.js
-SSL
-WebRTC-app.js.bat
-vuedist.bat
-web-rtc-chat.exe
-.env
-bin/web-rtc-chat
-dist/
-server-linux
+node_modules/**
