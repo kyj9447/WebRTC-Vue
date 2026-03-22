@@ -2,23 +2,30 @@
   "name": "web-rtc-chat",
   "version": "0.0.0",
   "private": true,
-  "bin": "app.js",
-  "main": "app.js",
+  "bin": "server/app.js",
+  "main": "server/app.js",
   "scripts": {
     "build": "vite build"
   },
   "dependencies": {
-  },
-  "devDependencies": {
+    "@simplewebauthn/server": "^13.3.0",
+    "compression": "^1.8.1",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "google-auth-library": "^10.6.2",
+    "mysql2": "^3.20.0",
+    "node-turn": "^0.0.6",
+    "winston": "^3.19.0",
+    "ws": "^8.20.0"
   },
   "type": "commonjs",
   "pkg": {
-    "scripts": "app.js",
+    "scripts": "server/app.js",
     "targets": [
       "node18-linux-x64"
     ],
     "assets": [
-      "dist/**/*"
+      "client/dist/**/*"
     ]
   }
 }

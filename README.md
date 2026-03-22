@@ -3,7 +3,7 @@
 
 ICE ( Interactive Connectivity Establishment ) 프레임워크로 STUN, TURN 서버를 통해 상대 Peer에 유동적으로 연결
 
-프론트엔드 구조 : 순수 HTML, JS, CSS 기반 SPA
+프론트엔드 구조 : `client/` 내부의 순수 HTML, JS, CSS 기반 SPA
 
 데스크탑, 모바일별 별도 레이아웃 제공
 
@@ -36,7 +36,14 @@ npm install
 npm run build
 ```
 
-`src/app/state.js`, `src/app/router.js`, `src/app/render.js`를 중심으로 프런트엔드 상태, 라우팅, 렌더링을 분리한 순수 SPA 구조를 사용합니다.
+현재 폴더 구조는 `client/`와 `server/`로 분리되어 있습니다.
+
+- `client/src/WebRTC.ts`
+- `client/public`
+- `client/dist`
+- `server/app.js`
+- `server/db.js`
+- `server/schema.sql`
 
 #### Capacitor Android 앱 동기화
 
@@ -97,5 +104,42 @@ npm run cap:open:android
 
 ```sh
 npm install
-node app.js
+node server/app.js
 ```
+
+#### 회원 백엔드 초기화
+
+Google OAuth, 회원 DB, 지문등록은 백엔드에서 다음 순서로 준비합니다.
+
+1. `.env.example`을 기준으로 `.env` 작성
+2. MySQL에 `schema.sql` 적용
+3. Google Cloud Console에서 OAuth 클라이언트 생성
+4. `GOOGLE_REDIRECT_URI`, `WEBAUTHN_RP_ID`, `WEBAUTHN_ORIGIN`을 실제 도메인으로 설정
+5. `SESSION_COOKIE_NAME`, `SESSION_TTL_DAYS`를 설정
+
+```sh
+cp .env.example .env
+mysql -u root -p < server/schema.sql
+node server/app.js
+```
+
+#### 회원 인증 API
+
+- `GET /auth/google/start`
+  Google OAuth 로그인 시작
+- `GET /auth/google/callback`
+  Google code 교환 후 회원 생성 또는 갱신, session cookie 설정
+- `GET /auth/me`
+  session cookie 기준 현재 회원 조회
+- `POST /auth/logout`
+  현재 session cookie 만료
+
+#### 지문등록 API
+
+서버는 원본 지문을 저장하지 않습니다. WebAuthn credential만 저장합니다.
+
+- `POST /auth/webauthn/register/options`
+  session cookie 필요
+- `POST /auth/webauthn/register/verify`
+  session cookie 필요
+  request body는 브라우저/앱에서 생성한 WebAuthn registration credential 전체 JSON
